@@ -47,3 +47,7 @@ pnpm-debug.log*
 # ── Testing ───────────────────────────────────────────────────────────────────
 playwright-report/
 test-results/
+
+# ── Local / reference (not part of the site) ──────────────────────────────────
+.history/
+OLD WEB/

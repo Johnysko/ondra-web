@@ -8,6 +8,8 @@
  */
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 import '../styles/global.css';
 import { brand } from '../config/brand';
 import { client } from '../data/client';
@@ -86,7 +88,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
       class="sr-only focus:not-sr-only focus:absolute focus:z-[99999] focus:bg-primary focus:text-primary-fg focus:px-4 focus:py-2 focus:rounded-md"
       href="#main"
     >
-      Skip to main content
+      Přeskočit na hlavní obsah
     </a>
 
     <slot name="header" />
@@ -96,5 +98,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
     </main>
 
     <slot name="footer" />
+
+    <ScrollReveal />
+    <WhatsAppButton />
   </body>
 </html>

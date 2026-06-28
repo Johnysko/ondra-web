@@ -249,6 +249,19 @@ Set `draft: true` to write a post without publishing it.
 
 The `netlify.toml` file already includes security headers (`X-Frame-Options`, `X-Content-Type-Options`, etc.) and immutable caching for hashed assets.
 
+### Contact form email notifications
+
+The contact page (`/kontakt`) uses [Netlify Forms](https://docs.netlify.com/forms/setup/). Submissions are stored in the Netlify dashboard — email delivery is **not** automatic; you must enable it after the first deploy.
+
+1. Deploy the site and confirm the form appears under **Forms** in the Netlify dashboard (form name: `contact`).
+2. Go to **Site configuration → Forms → Form notifications → Add notification → Email notification**.
+3. Select the **contact** form and set the recipient to your business email (e.g. `info@taclikelektro.cz` from `src/data/client.ts`).
+4. Submit a test message on the live site and check the inbox (and spam folder).
+
+Form submissions do not work with `pnpm run dev` alone. To test locally, use [Netlify CLI](https://docs.netlify.com/cli/get-started/): `netlify dev`.
+
+**Build command note:** this project uses pnpm. If the Netlify build fails, set the build command to `pnpm run build` in **Site configuration → Build & deploy**.
+
 ---
 
 ## Tech stack

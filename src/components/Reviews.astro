@@ -10,34 +10,42 @@ interface Props {
   topper?: string;
   heading?: string;
   reviews?: Review[];
+  reveal?: boolean;
 }
 
 const {
-  topper = 'Testimonials',
-  heading = 'What our customers say',
+  reveal = false,
+  topper = 'Reference',
+  heading = 'Co o mě říkají zákazníci',
   reviews = [
-    { quote: 'They showed up on time, explained everything clearly, and finished the job faster than expected. Best service experience we\'ve had.', name: 'Sarah M.', location: 'Denver, CO', rating: 5 },
-    { quote: 'Honest pricing and top-notch work. I\'ve used them for three different projects now and they never disappoint.', name: 'James R.', location: 'Aurora, CO', rating: 5 },
-    { quote: 'Our emergency call was answered in minutes. They had the problem fixed before dinner. Truly dependable.', name: 'Linda K.', location: 'Lakewood, CO', rating: 5 },
+    { quote: 'Dochvilnost, hodnota, kvalita, profesionalita, rychlost odpovědi.', name: 'Alex Ferko', location: 'Hradec Králové', rating: 5 },
+    { quote: 'Super odvedená práce, rychlost, kvalita, vše funguje jak má.', name: 'Pavel Vaníček', location: 'Vrchlabí', rating: 5 },
+    { quote: 'Jsem velice spokojená a vřele doporučuji. Skvělá komunikace, rychle provedená práce a příjemné vystupování.', name: 'Tereza Stará', location: 'Trutnov', rating: 5 },
   ],
 } = Astro.props;
 ---
 
 <section class="bg-surface py-section">
   <div class="mx-auto max-w-site px-4 sm:px-6">
-    <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-      <span class="text-topper font-bold uppercase tracking-widest text-accent">{topper}</span>
+    <div class:list={['mx-auto mb-10 max-w-2xl text-center lg:mb-14', reveal && 'reveal']}>
+      <span class="text-topper font-bold uppercase tracking-widest text-orange-500">{topper}</span>
       <h2 class="mt-2 font-heading text-h2 font-bold uppercase text-text">{heading}</h2>
     </div>
 
     <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
-      {reviews.map(({ quote, name, location, rating = 5 }) => (
-        <li class="flex flex-col rounded-lg border border-border bg-background p-6 shadow-sm">
+      {reviews.map(({ quote, name, location, rating = 5 }, i) => (
+        <li
+          class:list={[
+            reveal && 'reveal',
+            reveal && `reveal-delay-${(i % 4) + 1}`,
+          ]}
+        >
+          <div class="group flex h-full flex-col items-center text-center rounded-lg border border-border bg-background p-6 shadow-sm motion-safe:transform-gpu card-lift">
           <!-- Stars -->
-          <div class="mb-4 flex gap-0.5" aria-label={`Rated ${rating} out of 5 stars`}>
+          <div class="mb-4 flex justify-center gap-0.5" aria-label={`Hodnocení ${rating} z 5 hvězdiček`}>
             {Array.from({ length: 5 }).map((_, i) => (
               <svg
-                class:list={['size-5', i < rating ? 'text-accent' : 'text-border']}
+                class:list={['size-5', i < rating ? 'text-star' : 'text-border']}
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 aria-hidden="true"
@@ -51,9 +59,10 @@ const {
             &ldquo;{quote}&rdquo;
           </blockquote>
 
-          <div class="mt-4 border-t border-border pt-4">
+          <div class="mt-4 w-full border-t border-border pt-4">
             <p class="font-semibold text-text">{name}</p>
             <p class="text-sm text-text-muted">{location}</p>
+          </div>
           </div>
         </li>
       ))}

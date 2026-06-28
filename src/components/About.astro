@@ -16,24 +16,26 @@ interface Props {
   ctaHref?: string;
   imageSrc?: ImageMetadata | string;
   imageAlt?: string;
+  reveal?: boolean;
 }
 
 const {
-  topper = 'Who We Are',
-  heading = 'Trusted by homeowners for over 15 years',
+  reveal = false,
+  topper = 'O mně',
+  heading = 'Ondra Taclík — profesionální elektrikář',
   body = [
-    'We\'re a locally owned and operated business dedicated to delivering honest, dependable service to our community. Our team of licensed professionals takes pride in every job — big or small.',
-    'From day one, we\'ve built our reputation on doing the work right, showing up on time, and treating every home like our own.',
+    'Jsem elektrikář pro domácnosti i firmy v Praze a okolí. Provádím silnoproudé instalace, revize, osvětlení, zabezpečení i chytré domácnosti — vždy podle platných norem a s důrazem na bezpečnost.',
+    'Každou zakázku řeším osobně, srozumitelně a tak, abyste přesně věděli, co se ve vašem objektu děje.',
   ],
   benefits = [
-    'Background-checked, licensed professionals',
-    'Upfront pricing with no hidden fees',
-    'Satisfaction guaranteed on every project',
+    'Licencovaný a pojištěný řemeslník',
+    'Praha a okolí',
+    'Čistá práce a dodržení termínů',
   ],
-  ctaLabel = 'More About Us',
-  ctaHref = '/about',
+  ctaLabel = 'Více o mně',
+  ctaHref = '/o-me',
   imageSrc = localAboutImage ?? PLACEHOLDER,
-  imageAlt = 'Friendly professional team on a job site',
+  imageAlt = 'Ondra Taclík, elektrikář',
 } = Astro.props;
 ---
 
@@ -41,7 +43,7 @@ const {
   <div class="mx-auto grid max-w-site grid-cols-1 items-center gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14">
 
     <!-- Image -->
-    <div class="overflow-hidden rounded-lg shadow-lg">
+    <div class:list={['overflow-hidden rounded-lg shadow-lg', reveal && 'reveal reveal-from-left']}>
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -54,8 +56,8 @@ const {
     </div>
 
     <!-- Content -->
-    <div class="space-y-5">
-      <span class="text-topper font-bold uppercase tracking-widest text-accent">{topper}</span>
+    <div class:list={['space-y-5', reveal && 'reveal reveal-delay-2']}>
+      <span class="text-topper font-bold uppercase tracking-widest text-orange-500">{topper}</span>
       <h2 class="font-heading text-h2 font-bold uppercase text-text">{heading}</h2>
 
       {body.map((paragraph) => (
@@ -77,7 +79,7 @@ const {
       <div class="pt-2">
         <a
           href={ctaHref}
-          class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-6 py-3 text-base font-bold text-primary-fg shadow-sm transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          class="button-outline button-lift inline-flex min-h-[44px] items-center gap-2 rounded-md px-6 py-3 text-base font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
           {ctaLabel}
           <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

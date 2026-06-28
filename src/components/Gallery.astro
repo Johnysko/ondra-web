@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { galleryImages as defaultImages } from "../config/images";
 import type { GalleryImage } from "../config/images";
 
 interface Props {
@@ -8,24 +7,31 @@ interface Props {
   heading?: string;
   description?: string;
   images?: GalleryImage[];
-  ctaLabel?: string;
-  ctaHref?: string;
+  reveal?: boolean;
 }
 
+const defaultImages: GalleryImage[] = [
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000033-310a9310ad/7C3F83F0-5C00-4DC3-9061-4C6FC58CF673.jpeg?ph=e1739bcffc', alt: 'Rekonstrukce Restaurace U Soudku' },
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000041-49f3b49f3d/56606305_2042286222740553_4173271506496782336_o-5.jpg?ph=e1739bcffc', alt: 'Elektroinstalace v rodinném domě Čermná' },
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000044-03edb03edd/44165091_1944976312471545_5452443553294712832_o.jpg?ph=e1739bcffc', alt: 'Rekonstrukce elektroměrového rozvaděče Rudník' },
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000038-3500635008/46885258_1967749346860908_7357970557976969216_o.jpg?ph=e1739bcffc', alt: 'Montáž venkovního osvětlení Lánov' },
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000042-22caa22cad/46413135_1961746280794548_5154866675471876096_o.jpg?ph=e1739bcffc', alt: 'Instalace tepelného čerpadla Vrchlabí' },
+  { src: 'https://e1739bcffc.clvaw-cdnwnd.com/51ae5f419a8e443c3972ac25c948cd27/200000046-0a9080a90b/45783264_1957133434589166_6292502662055198720_o.jpg?ph=e1739bcffc', alt: 'Oprava a revize společných prostor Trutnov' },
+];
+
 const {
-  topper = "Our Work",
-  heading = "Recent Projects",
-  description = "See the quality and attention to detail we bring to every project.",
+  reveal = false,
+  topper = "Má práce",
+  heading = "Nedávné projekty",
+  description = "Podívejte se na mé nedávno realizované projekty.",
   images = defaultImages,
-  ctaLabel = "View All Projects",
-  ctaHref = "/services",
 } = Astro.props;
 ---
 
 <section class="py-section">
   <div class="mx-auto max-w-site px-4 sm:px-6">
-    <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-      <span class="text-topper font-bold uppercase tracking-widest text-accent"
+    <div class:list={['mx-auto mb-10 max-w-2xl text-center lg:mb-14', reveal && 'reveal']}>
+      <span class="text-topper font-bold uppercase tracking-widest text-orange-500"
         >{topper}</span
       >
       <h2 class="mt-2 font-heading text-h2 font-bold uppercase text-text">
@@ -36,11 +42,18 @@ const {
 
     <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
       {
-        images.map(({ src, alt }) => (
+        images.map(({ src, alt }, i) => (
           <div
-            class="group relative overflow-hidden rounded-lg aspect-4/3 bg-surface"
-            data-gallery-item
+            class:list={[
+              reveal && 'reveal',
+              reveal && `reveal-delay-${(i % 4) + 1}`,
+            ]}
           >
+            <div class="group card-lift motion-safe:transform-gpu rounded-lg border border-border bg-background shadow-sm">
+              <div
+                class="relative overflow-hidden rounded-lg aspect-4/3 bg-surface"
+                data-gallery-item
+              >
             {/* Shimmer skeleton — visible while the image loads */}
             <div
               class="absolute inset-0 animate-pulse bg-linear-to-r from-surface via-border to-surface"
@@ -55,7 +68,7 @@ const {
               height={450}
               loading="lazy"
               decoding="async"
-              class="relative size-full object-cover opacity-0 transition-all duration-300 group-hover:scale-105"
+              class="relative size-full object-cover opacity-0 transition-opacity duration-300"
               data-gallery-img
             />
 
@@ -63,7 +76,7 @@ const {
             <div
               class="absolute inset-0 hidden flex-col items-center justify-center gap-2 bg-surface text-sm text-text-muted"
               data-error-state
-              aria-label="Image unavailable"
+              aria-label="Obrázek není k dispozici"
             >
               <svg
                 class="size-8 opacity-40"
@@ -79,44 +92,19 @@ const {
                   d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span class="text-xs">Image unavailable</span>
+              <span class="text-xs">Obrázek není k dispozici</span>
             </div>
 
-            {/* Hover caption overlay */}
-            <div class="absolute inset-0 flex items-end bg-linear-to-t from-dark/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {/* Caption overlay — always visible for project name */}
+            <div class="pointer-events-none absolute inset-0 flex items-end bg-linear-to-t from-dark/75 via-dark/25 to-transparent transition-opacity duration-300 group-hover:from-dark/85">
               <p class="p-3 text-sm font-medium text-white sm:p-4">{alt}</p>
+            </div>
+              </div>
             </div>
           </div>
         ))
       }
     </div>
-
-    {
-      ctaLabel && (
-        <div class="mt-10 text-center">
-          <a
-            href={ctaHref}
-            class="inline-flex min-h-[44px] items-center gap-2 rounded-md border-2 border-primary px-6 py-3 text-base font-bold text-primary transition-colors hover:bg-primary hover:text-primary-fg"
-          >
-            {ctaLabel}
-            <svg
-              class="size-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
-        </div>
-      )
-    }
   </div>
 </section>
 

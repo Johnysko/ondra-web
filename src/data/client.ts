@@ -10,29 +10,38 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
+const phoneForTel = '+420 773 575 225';
+
 export const client = {
-  name: 'Small Business Starter',
-  email: 'hello@example.com',
-  phoneForTel: '555-867-5309',
-  phoneFormatted: '(555) 867-5309',
+  name: 'Taclík Elektro',
+  ico: '06406971',
+  email: 'info@taclikelektro.cz',
+  phoneForTel,
+  phoneFormatted: phoneForTel,
+  phoneForWhatsApp: phoneForTel.replace(/\D/g, ''),
+  whatsappDefaultMessage: 'Dobrý den, mám dotaz ohledně ',
   /** Business / contractor license number. Displayed in the header and footer
-   *  as a trust signal. Set to an empty string to hide it. */
-  license: 'Lic# 123456',
+   *  as a trust signal. Set to an empty string to hide it. */ 
   address: {
-    lineOne: '123 Main Street',
-    lineTwo: 'Suite 100',
-    city: 'Denver',
-    state: 'CO',
-    zip: '80206',
-    country: 'US',
+    lineOne: 'Ambrožova 1862/13',
+    lineTwo: '',
+    city: 'Praha 3',
+    state: '',
+    zip: '130 00',
+    country: 'CZ',
     mapLink: 'https://maps.app.goo.gl/example',
   },
   socials: {
-    facebook: 'https://www.facebook.com/',
-    instagram: 'https://www.instagram.com/',
-    google: 'https://www.google.com/maps',
+    facebook: 'https://www.facebook.com/stelektro/',
+    instagram: '',
+    google: '',
   },
   domain: 'https://www.example.com',
 } as const;
 
 export type Client = typeof client;
+
+export function getWhatsAppUrl(message: string = client.whatsappDefaultMessage) {
+  const text = encodeURIComponent(message);
+  return `https://wa.me/${client.phoneForWhatsApp}?text=${text}`;
+}

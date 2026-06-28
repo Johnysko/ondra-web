@@ -5,11 +5,19 @@ interface Props {
 
 const { title } = Astro.props;
 
+const pathLabels: Record<string, string> = {
+  'o-me': 'O mě',
+  sluzby: 'Služby',
+  recenze: 'Recenze',
+  kontakt: 'Kontakt',
+  odeslano: 'Odesláno',
+};
+
 const segments = Astro.url.pathname
   .split('/')
   .filter(Boolean)
   .map((seg, i, arr) => ({
-    label: seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    label: pathLabels[seg] ?? seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
     href: '/' + arr.slice(0, i + 1).join('/'),
     isLast: i === arr.length - 1,
   }));
@@ -18,10 +26,10 @@ const segments = Astro.url.pathname
 <section class="bg-primary py-14 sm:py-16 lg:py-20">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="mb-4">
+    <nav aria-label="Drobečková navigace" class="mb-4">
       <ol class="flex flex-wrap items-center gap-1.5 text-sm text-primary-fg/60">
         <li>
-          <a href="/" class="transition-colors hover:text-primary-fg">Home</a>
+          <a href="/" class="transition-colors hover:text-primary-fg">Domů</a>
         </li>
         {segments.map(({ label, href, isLast }) => (
           <li class="flex items-center gap-1.5">
@@ -38,7 +46,7 @@ const segments = Astro.url.pathname
       </ol>
     </nav>
 
-    <h1 class="font-heading text-h1 font-bold uppercase text-primary-fg">
+    <h1 class="reveal font-heading text-h1 font-bold uppercase text-primary-fg">
       {title}
     </h1>
   </div>

@@ -15,8 +15,10 @@
   --color-primary:       #1B3A6B;
   --color-primary-light: #2563EB;
   --color-primary-fg:    #ffffff;
-  --color-accent:        #F97316;
+  --color-accent:        #2563EB;
   --color-accent-fg:     #ffffff;
+  --color-star:          #EAB308;
+  --color-required:      #DC2626;
 
   /* ── Neutral Scale ──────────────────────────────────────────────── */
   --color-background:    #ffffff;

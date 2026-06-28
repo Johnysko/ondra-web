@@ -1,14 +1,14 @@
 ---
+import logo from '../assets/images/logo/logo.png';
 import { brand } from '../config/brand';
 import { client } from '../data/client';
 
 const nav = [
-  { label: 'Home',     href: '/' },
-  { label: 'About',    href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Reviews',  href: '/reviews' },
-  { label: 'Blog',     href: '/blog' },
-  { label: 'Contact',  href: '/contact' },
+  { label: 'Domů',     href: '/' },
+  { label: 'O mě',     href: '/o-me' },
+  { label: 'Služby',   href: '/sluzby' },
+  { label: 'Recenze',  href: '/recenze' },
+  { label: 'Kontakt',  href: '/kontakt' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -16,31 +16,34 @@ const currentPath = Astro.url.pathname;
 
 <header
   class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm"
-  transition:persist
 >
   <div class="mx-auto flex max-w-site items-center justify-between px-4 py-3 sm:px-6">
     <!-- Logo -->
     <a
       href="/"
-      class="font-heading text-xl font-bold uppercase tracking-wide text-primary transition-opacity hover:opacity-80"
+      class="inline-flex shrink-0 items-center transition-opacity hover:opacity-80"
+      aria-label="Taclík Elektro - domů"
     >
-      {brand.name}
+      <img
+        src={logo.src}
+        width={logo.width}
+        height={logo.height}
+        alt="Taclík Elektro"
+        class="h-10 w-auto max-w-[150px] object-contain sm:h-12 sm:max-w-[180px] lg:h-11"
+        decoding="async"
+        loading="eager"
+      />
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Hlavní navigace">
       {nav.map(({ label, href }) => {
         const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
         return (
           <a
             href={href}
             aria-current={isActive ? 'page' : undefined}
-            class:list={[
-              'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-              isActive
-                ? 'bg-primary/10 text-primary'
-                : 'text-text-muted hover:text-text',
-            ]}
+            class="rounded-md px-3 py-2 text-sm font-medium text-text transition-colors hover:bg-surface aria-[current=page]:bg-primary/10"
           >
             {label}
           </a>
@@ -62,10 +65,10 @@ const currentPath = Astro.url.pathname;
         {client.phoneFormatted}
       </a>
       <a
-        href="/contact"
-        class="inline-flex min-h-[44px] items-center rounded-md bg-accent px-5 py-2.5 text-sm font-bold text-accent-fg shadow-sm transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href="/kontakt"
+        class="button-accent inline-flex min-h-[44px] items-center rounded-md px-5 py-2.5 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
-        Free Quote
+        Nezávazná nabídka
       </a>
     </div>
 
@@ -77,7 +80,7 @@ const currentPath = Astro.url.pathname;
       aria-controls="mobile-menu"
       class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-text-muted hover:bg-surface lg:hidden"
     >
-      <span class="sr-only">Toggle menu</span>
+      <span class="sr-only">Přepnout menu</span>
       <svg id="menu-icon-open" class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
@@ -92,18 +95,14 @@ const currentPath = Astro.url.pathname;
     id="mobile-menu"
     class="hidden border-t border-border bg-background px-4 pb-6 pt-2 lg:hidden"
   >
-    <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+    <nav class="flex flex-col gap-1" aria-label="Mobilní navigace">
       {nav.map(({ label, href }) => {
         const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
         return (
           <a
             href={href}
-            class:list={[
-              'rounded-md px-3 py-3 text-base font-medium transition-colors',
-              isActive
-                ? 'bg-primary/10 text-primary'
-                : 'text-text-muted hover:text-text hover:bg-surface',
-            ]}
+            aria-current={isActive ? 'page' : undefined}
+            class="rounded-md px-3 py-3 text-base font-medium text-text transition-colors hover:bg-surface aria-[current=page]:bg-primary/10"
           >
             {label}
           </a>
@@ -122,10 +121,10 @@ const currentPath = Astro.url.pathname;
         {client.phoneFormatted}
       </a>
       <a
-        href="/contact"
-        class="flex min-h-[44px] items-center justify-center rounded-md bg-accent px-5 py-3 text-base font-bold text-accent-fg shadow-sm transition-opacity hover:opacity-90"
+        href="/kontakt"
+        class="button-accent flex min-h-[44px] items-center justify-center rounded-md px-5 py-3 text-base font-bold"
       >
-        Get a Free Quote
+        Nezávazná nabídka zdarma
       </a>
       {client.license && (
         <p class="px-3 pt-1 text-xs text-text-muted">{client.license}</p>
@@ -135,31 +134,20 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  (() => {
-    const headerEl = document.querySelector('header');
-    const btnEl = document.getElementById('menu-toggle');
-    const menuEl = document.getElementById('mobile-menu');
-    const iconOpenEl = document.getElementById('menu-icon-open');
-    const iconCloseEl = document.getElementById('menu-icon-close');
+  function initHeader() {
+    const header = document.querySelector('header');
+    const btn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
 
-    if (!headerEl || !btnEl || !menuEl || !iconOpenEl || !iconCloseEl) return;
-
-    const header = /** @type {HTMLElement} */ (headerEl);
-    const btn = /** @type {HTMLButtonElement} */ (btnEl);
-    const menu = /** @type {HTMLElement} */ (menuEl);
-    const iconOpen = /** @type {HTMLElement} */ (iconOpenEl);
-    const iconClose = /** @type {HTMLElement} */ (iconCloseEl);
-    if (header.dataset.menuInit === 'true') return;
-    header.dataset.menuInit = 'true';
-
-    const activeClasses = ['bg-primary/10', 'text-primary'];
-    const inactiveDesktop = ['text-text-muted', 'hover:text-text'];
-    const inactiveMobile = ['text-text-muted', 'hover:text-text', 'hover:bg-surface'];
+    if (!header || !btn || !menu || !iconOpen || !iconClose) return;
+    if (btn.dataset.menuInit === 'true') return;
+    btn.dataset.menuInit = 'true';
 
     const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
     const setMenuOpen = (nextOpen: boolean) => {
-      // Hard stop: hamburger/drawer behavior is mobile-only.
       if (isDesktop()) nextOpen = false;
       btn.setAttribute('aria-expanded', String(nextOpen));
       menu.classList.toggle('hidden', !nextOpen);
@@ -167,39 +155,9 @@ const currentPath = Astro.url.pathname;
       iconClose.classList.toggle('hidden', !nextOpen);
     };
 
-    function syncActiveLinks() {
-      const path = window.location.pathname;
-      const desktopLinks = header.querySelectorAll('nav[aria-label="Primary navigation"] a');
-      const mobileLinks = header.querySelectorAll('#mobile-menu nav a');
-
-      desktopLinks.forEach((link) => {
-        const href = link.getAttribute('href') || '';
-        const isActive = href === path || (href !== '/' && path.startsWith(href));
-        link.classList.toggle(activeClasses[0], isActive);
-        link.classList.toggle(activeClasses[1], isActive);
-        link.classList.toggle(inactiveDesktop[0], !isActive);
-        link.classList.toggle(inactiveDesktop[1], !isActive);
-        if (isActive) link.setAttribute('aria-current', 'page');
-        else link.removeAttribute('aria-current');
-      });
-
-      mobileLinks.forEach((link) => {
-        const href = link.getAttribute('href') || '';
-        const isActive = href === path || (href !== '/' && path.startsWith(href));
-        link.classList.toggle(activeClasses[0], isActive);
-        link.classList.toggle(activeClasses[1], isActive);
-        link.classList.toggle(inactiveMobile[0], !isActive);
-        link.classList.toggle(inactiveMobile[1], !isActive);
-        link.classList.toggle(inactiveMobile[2], !isActive);
-        if (isActive) link.setAttribute('aria-current', 'page');
-        else link.removeAttribute('aria-current');
-      });
-    }
-
     btn.addEventListener('click', () => {
       if (isDesktop()) return;
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      setMenuOpen(!isOpen);
+      setMenuOpen(btn.getAttribute('aria-expanded') !== 'true');
     });
 
     menu.addEventListener('click', (event) => {
@@ -208,16 +166,21 @@ const currentPath = Astro.url.pathname;
       if (target.closest('a[href]')) setMenuOpen(false);
     });
 
-    document.addEventListener('astro:before-preparation', () => setMenuOpen(false));
-    document.addEventListener('astro:after-swap', () => {
-      setMenuOpen(false);
-      syncActiveLinks();
-    });
-
-    // Ensure mobile drawer can't stay open if viewport changes to desktop.
     window.addEventListener('resize', () => setMenuOpen(false));
-
     setMenuOpen(false);
-    syncActiveLinks();
-  })();
+  }
+
+  document.addEventListener('astro:before-preparation', () => {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('menu-toggle');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    if (!menu || !btn || !iconOpen || !iconClose) return;
+    btn.setAttribute('aria-expanded', 'false');
+    menu.classList.add('hidden');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+  });
+
+  document.addEventListener('astro:page-load', initHeader);
 </script>
