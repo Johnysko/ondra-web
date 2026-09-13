@@ -4,9 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Banner from '../components/Banner.astro';
 import CTA from '../components/CTA.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
 import { brand } from '../config/brand';
 import { services } from '../data/services';
-import { renderLucideIcon } from '../utils/lucide';
 ---
 
 <BaseLayout title="Služby" description={`Prohlédněte si kompletní nabídku elektro služeb od ${brand.name}. Elektroinstalace, osvětlení, zabezpečení, hromosvody i revize.`}>
@@ -30,9 +30,7 @@ import { renderLucideIcon } from '../utils/lucide';
             ]}
           >
             <div class="group flex h-full cursor-default flex-col items-center text-center rounded-lg border border-border bg-background p-6 shadow-sm motion-safe:transform-gpu card-lift">
-              <div class="icon-chip mb-4 flex size-12 items-center justify-center rounded-lg">
-                <Fragment set:html={renderLucideIcon(service.icon, 'size-6 transition-transform group-hover:scale-110')} />
-              </div>
+              <ServiceIcon icon={service.icon} logo={service.logo} />
               <h3 class="font-heading text-h3 font-semibold text-text">{service.title}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-text-muted">{service.description}</p>
               

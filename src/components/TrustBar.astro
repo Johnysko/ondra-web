@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { reveal = false, items = [
-  { icon: 'ShieldCheck', label: 'Plně pojištěno' },
+  { icon: 'MapPin', label: 'Praha a Střední Čechy' },
   { icon: 'CalendarClock', label: 'let zkušeností', value: '9' },
   { icon: 'CircleCheck', label: 'dokončených zakázek', value: '100+' },
 ] } = Astro.props;
@@ -30,7 +30,7 @@ const { reveal = false, items = [
             reveal && `reveal-delay-${(i % 4) + 1}`,
           ]}
         >
-          <Fragment set:html={renderLucideIcon(item.icon, 'size-5 shrink-0 text-orange-500')} />
+          <Fragment set:html={renderLucideIcon(item.icon, 'size-5 shrink-0 text-accent')} />
           <span class="font-heading font-semibold text-text">
             {item.value && <span class="text-primary">{item.value} </span>}
             {item.label}

@@ -15,7 +15,7 @@
   --color-primary:       #1B3A6B;
   --color-primary-light: #2563EB;
   --color-primary-fg:    #ffffff;
-  --color-accent:        #2563EB;
+  --color-accent:        #F97316;
   --color-accent-fg:     #ffffff;
   --color-star:          #EAB308;
   --color-required:      #DC2626;
@@ -59,4 +59,20 @@
 @theme inline {
   --font-heading: var(--font-display), 'Oswald', ui-sans-serif, system-ui, sans-serif;
   --font-body:    var(--font-body), 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html.dark-mode {
+  color-scheme: dark;
+  --color-primary:       #F97316;
+  --color-primary-light: #FB923C;
+  --color-primary-fg:    #0A0A0A;
+  --color-accent:        #F97316;
+  --color-accent-fg:     #0A0A0A;
+  --color-background:    #0A0A0A;
+  --color-surface:       #161616;
+  --color-border:        #2A2A2A;
+  --color-text:          #F4F4F5;
+  --color-text-muted:    #A1A1AA;
+  --color-dark:          #050505;
+  --color-dark-surface:  #111111;
 }

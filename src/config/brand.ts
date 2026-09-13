@@ -17,7 +17,7 @@ export const brand = {
   name: 'Taclík Elektro',
   tagline: 'Spolehlivý elektrikář pro domácnosti i firmy.',
   description:
-    'Provádím silnoproudé elektroinstalace, chytré domácnosti, LED osvětlení, zabezpečení, hromosvody a revize s důrazem na bezpečnost, čistou práci a platné normy.',
+    'Provádím silnoproudé i slaboproudé elektroinstalace, chytrá řešení domácností s pomocí Loxone, LED osvětlení, zabezpečení, hromosvody a revize s důrazem na bezpečnost, čistou práci a platné normy.',
   url: 'https://example.com',
   locale: 'cs_CZ',
 
@@ -37,7 +37,7 @@ export const brand = {
     primaryLight: '#2563EB',
     primaryFg:    '#ffffff',
 
-    accent:       '#2563EB',
+    accent:       '#F97316',
     accentFg:     '#ffffff',
 
     star:         '#EAB308',

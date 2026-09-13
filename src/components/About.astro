@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { aboutImage as localAboutImage } from '../config/images';
 
@@ -22,33 +21,36 @@ interface Props {
 const {
   reveal = false,
   topper = 'O mně',
-  heading = 'Ondra Taclík — profesionální elektrikář',
+  heading = 'Ondřej Taclík - Váš elektrikář',
   body = [
-    'Jsem elektrikář pro domácnosti i firmy v Praze a okolí. Provádím silnoproudé instalace, revize, osvětlení, zabezpečení i chytré domácnosti — vždy podle platných norem a s důrazem na bezpečnost.',
-    'Každou zakázku řeším osobně, srozumitelně a tak, abyste přesně věděli, co se ve vašem objektu děje.',
+    'Jsem certifikovaný elektrikář s několikaletou praxí v oboru. Zabývám se kompletními elektroinstalacemi – od drobných oprav v domácnostech přes celkové rekonstrukce bytů a domů až po realizace v zahraničí.',
+    'Práce s elektřinou pro mě není jen obor, ale řemeslo, na kterém závisí bezpečnost a komfort vašeho domova či firmy. Zakládám si na tom, aby po mně práce zůstala odvedená čistě, bezpečně a v přesně dohodnutém termínu.',
   ],
   benefits = [
-    'Licencovaný a pojištěný řemeslník',
-    'Praha a okolí',
-    'Čistá práce a dodržení termínů',
+    'Certifikovaný partner Loxone',
+    'Osobní přístup',
   ],
-  ctaLabel = 'Více o mně',
-  ctaHref = '/o-me',
+  ctaLabel = 'Nezávazná nabídka',
+  ctaHref = '/kontakt',
   imageSrc = localAboutImage ?? PLACEHOLDER,
   imageAlt = 'Ondra Taclík, elektrikář',
 } = Astro.props;
+
+const aboutSrc = typeof imageSrc === 'string' ? imageSrc : imageSrc.src;
+const aboutWidth = typeof imageSrc === 'string' ? 700 : imageSrc.width;
+const aboutHeight = typeof imageSrc === 'string' ? 525 : imageSrc.height;
 ---
 
-<section class="py-section">
+<section id="o-mne" class="scroll-mt-28 py-section">
   <div class="mx-auto grid max-w-site grid-cols-1 items-center gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14">
 
     <!-- Image -->
     <div class:list={['overflow-hidden rounded-lg shadow-lg', reveal && 'reveal reveal-from-left']}>
-      <Image
-        src={imageSrc}
+      <img
+        src={aboutSrc}
         alt={imageAlt}
-        width={700}
-        height={525}
+        width={aboutWidth}
+        height={aboutHeight}
         loading="lazy"
         decoding="async"
         class="size-full object-cover"
@@ -57,7 +59,7 @@ const {
 
     <!-- Content -->
     <div class:list={['space-y-5', reveal && 'reveal reveal-delay-2']}>
-      <span class="text-topper font-bold uppercase tracking-widest text-orange-500">{topper}</span>
+      <span class="text-topper font-bold uppercase tracking-widest text-accent">{topper}</span>
       <h2 class="font-heading text-h2 font-bold uppercase text-text">{heading}</h2>
 
       {body.map((paragraph) => (

@@ -1,0 +1,27 @@
+---
+import loxoneLogo from '../assets/images/partners/loxone.png';
+import { renderLucideIcon } from '../utils/lucide';
+
+interface Props {
+  icon: string;
+  logo?: boolean;
+}
+
+const { icon, logo = false } = Astro.props;
+---
+
+{logo ? (
+  <img
+    src={loxoneLogo.src}
+    width={loxoneLogo.width}
+    height={loxoneLogo.height}
+    alt="Loxone"
+    class="loxone-logo mb-4 h-16 w-auto max-w-[14rem] rounded-lg object-contain"
+    decoding="async"
+    loading="eager"
+  />
+) : (
+  <div class="icon-chip mb-4 flex size-12 items-center justify-center rounded-lg">
+    <Fragment set:html={renderLucideIcon(icon, 'size-6 transition-transform group-hover:scale-110')} />
+  </div>
+)}

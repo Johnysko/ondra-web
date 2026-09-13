@@ -6,15 +6,7 @@ import Banner from '../components/Banner.astro';
 import CTA from '../components/CTA.astro';
 import { brand } from '../config/brand';
 import { client } from '../data/client';
-
-const reviews = [
-  { quote: 'Přijeli včas, vše srozumitelně vysvětlili a práci dokončili dřív, než jsme čekali. Nejlepší servisní zkušenost, jakou jsme měli.', name: 'Sarah M.', location: 'Praha', rating: 5 },
-  { quote: 'Férové ceny a špičková práce. Už jsme je využili na tři projekty a vždy spolehlivě.', name: 'James R.', location: 'Brno', rating: 5 },
-  { quote: 'Na pohotovostní hovor odpověděli během minut. Problém vyřešili ještě před večeří. Opravdu spolehliví.', name: 'Linda K.', location: 'Ostrava', rating: 5 },
-  { quote: 'Rekonstrukce dopadla ještě lépe, než jsme si představovali. Profesionální, čistá práce a v rozpočtu. Nemůžeme být spokojenější.', name: 'Tom & Beth P.', location: 'Plzeň', rating: 5 },
-  { quote: 'Skvělá komunikace od začátku do konce. Posílali fotky průběhu a po dokončení vše perfektně uklidili.', name: 'Anita W.', location: 'Liberec', rating: 5 },
-  { quote: 'Oceňuji transparentní ceny — žádné skryté poplatky ani překvapení. Dnes vzácnost. Vřele doporučuji.', name: 'Marcus D.', location: 'Olomouc', rating: 5 },
-];
+import { recenzeReviews as reviews } from '../data/reviews';
 ---
 
 <BaseLayout
@@ -71,7 +63,7 @@ const reviews = [
             </blockquote>
             <div class="mt-4 w-full border-t border-border pt-4">
               <p class="font-semibold text-text">{name}</p>
-              <p class="text-sm text-text-muted">{location}</p>
+              {location && <p class="text-sm text-text-muted">{location}</p>}
             </div>
             </div>
           </li>

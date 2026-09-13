@@ -1,0 +1,62 @@
+---
+import { renderLucideIcon } from '../utils/lucide';
+---
+
+<button
+  type="button"
+  role="switch"
+  data-theme-toggle
+  class="inline-flex min-h-[44px] cursor-pointer items-center rounded-md px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+  aria-label="Přepnout tmavý režim"
+  aria-checked="false"
+>
+  <span class="theme-switch" aria-hidden="true">
+    <span class="theme-switch-icon">
+      <Fragment set:html={renderLucideIcon('Sun', 'size-3')} />
+    </span>
+    <span class="theme-switch-thumb"></span>
+    <span class="theme-switch-icon">
+      <Fragment set:html={renderLucideIcon('Moon', 'size-3')} />
+    </span>
+  </span>
+</button>
+
+<script>
+  function isDark() {
+    return document.documentElement.classList.contains('dark-mode');
+  }
+
+  function syncToggleUi() {
+    const dark = isDark();
+    document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+      if (!(btn instanceof HTMLElement)) return;
+      btn.setAttribute('aria-checked', String(dark));
+      btn.setAttribute('aria-label', dark ? 'Přepnout světlý režim' : 'Přepnout tmavý režim');
+    });
+  }
+
+  function applyStoredTheme() {
+    const t = localStorage.getItem('theme');
+    const dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark-mode', dark);
+  }
+
+  function initThemeToggle() {
+    applyStoredTheme();
+    document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+      if (!(btn instanceof HTMLElement)) return;
+      if (btn.dataset.init === 'true') return;
+      btn.dataset.init = 'true';
+      btn.addEventListener('click', () => {
+        const next = isDark() ? 'light' : 'dark';
+        document.documentElement.classList.toggle('dark-mode', next === 'dark');
+        localStorage.setItem('theme', next);
+        syncToggleUi();
+      });
+    });
+    syncToggleUi();
+  }
+
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script>

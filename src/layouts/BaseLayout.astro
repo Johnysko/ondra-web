@@ -57,8 +57,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
     <meta name="twitter:image"       content={image} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Fonts -->
     <Font cssVariable="--font-display" preload />
@@ -69,13 +70,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
-    <!-- FOUC prevention for dark mode -->
+    <!-- FOUC prevention for dark mode (also survives ClientRouter swaps) -->
     <script is:inline>
-      (function(){
-        var t = localStorage.getItem('theme');
-        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark-mode');
+      (function () {
+        function applyTheme(root) {
+          if (!root) return;
+          var t = localStorage.getItem('theme');
+          var dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          root.classList.toggle('dark-mode', dark);
         }
+        applyTheme(document.documentElement);
+        document.addEventListener('astro:before-swap', function (event) {
+          applyTheme(event.newDocument.documentElement);
+        });
+        document.addEventListener('astro:after-swap', function () {
+          applyTheme(document.documentElement);
+        });
       })();
     </script>
 

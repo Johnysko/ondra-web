@@ -1,10 +1,5 @@
 ---
-interface Review {
-  quote: string;
-  name: string;
-  location: string;
-  rating?: number;
-}
+import { homepageReviews, type Review } from '../data/reviews';
 
 interface Props {
   topper?: string;
@@ -17,18 +12,14 @@ const {
   reveal = false,
   topper = 'Reference',
   heading = 'Co o mě říkají zákazníci',
-  reviews = [
-    { quote: 'Dochvilnost, hodnota, kvalita, profesionalita, rychlost odpovědi.', name: 'Alex Ferko', location: 'Hradec Králové', rating: 5 },
-    { quote: 'Super odvedená práce, rychlost, kvalita, vše funguje jak má.', name: 'Pavel Vaníček', location: 'Vrchlabí', rating: 5 },
-    { quote: 'Jsem velice spokojená a vřele doporučuji. Skvělá komunikace, rychle provedená práce a příjemné vystupování.', name: 'Tereza Stará', location: 'Trutnov', rating: 5 },
-  ],
+  reviews = homepageReviews,
 } = Astro.props;
 ---
 
 <section class="bg-surface py-section">
   <div class="mx-auto max-w-site px-4 sm:px-6">
     <div class:list={['mx-auto mb-10 max-w-2xl text-center lg:mb-14', reveal && 'reveal']}>
-      <span class="text-topper font-bold uppercase tracking-widest text-orange-500">{topper}</span>
+      <span class="text-topper font-bold uppercase tracking-widest text-accent">{topper}</span>
       <h2 class="mt-2 font-heading text-h2 font-bold uppercase text-text">{heading}</h2>
     </div>
 
@@ -61,11 +52,20 @@ const {
 
           <div class="mt-4 w-full border-t border-border pt-4">
             <p class="font-semibold text-text">{name}</p>
-            <p class="text-sm text-text-muted">{location}</p>
+            {location && <p class="text-sm text-text-muted">{location}</p>}
           </div>
           </div>
         </li>
       ))}
     </ul>
+
+    <div class="mt-8 flex justify-center">
+      <a
+        href="/recenze"
+        class="button-outline button-lift inline-flex min-h-[44px] items-center justify-center rounded-md px-6 py-3 text-base font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        Všechny mé recenze
+      </a>
+    </div>
   </div>
 </section>

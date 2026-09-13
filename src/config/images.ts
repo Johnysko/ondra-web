@@ -30,15 +30,17 @@
 import type { ImageMetadata } from 'astro';
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
-// Recommended: landscape image, at least 1600 × 1200 px
+// Recommended: landscape photo, at least 1600 × 1200 px
 //
-// To use your own:
-//   1. Drop your file into src/assets/images/hero/
-//   2. Uncomment and update the line below
-//   3. Replace the heroImage export at the bottom of this section
+// Currently using the brand mark as a temporary stand-in. To swap in a photo:
+//   1. Drop the file into src/assets/images/hero/
+//   2. Point heroImageAsset at that file
+//   3. Set heroImageIsLogo to false (restores photo crop + overlays)
 //
-import heroImageAsset from '../assets/images/hero/ondra-hero.jpg';
+import heroImageAsset from '../assets/images/hero/taclik-elektro-logo.png';
 export const heroImage: ImageMetadata | undefined = heroImageAsset;
+/** Temporary brand mark in the hero until a real photo of Ondra is available. */
+export const heroImageIsLogo = true;
 
 // ── About ─────────────────────────────────────────────────────────────────────
 // Recommended: portrait or square image of your team/job site, at least 900 × 700 px

@@ -5,6 +5,7 @@ export interface Service {
   description: string;
   href: string;
   icon: LucideIconName;
+  logo?: boolean;
 }
 
 export const services: Service[] = [
@@ -15,10 +16,11 @@ export const services: Service[] = [
     icon: 'Route',
   },
   {
-    title: 'CHYTRÁ DOMÁCNOST',
-    description: 'Návrh a instalace chytrého ovládání osvětlení, stínění, vytápění a dalších prvků domácnosti.',
+    title: 'MONTÁŽNÍ PARTNER LOXONE',
+    description: 'Návrh a montáž chytrých domácností na platformě Loxone — osvětlení, stínění, vytápění i zabezpečení v jednom systému.',
     href: '/sluzby',
     icon: 'HouseWifi',
+    logo: true,
   },
   {
     title: 'INSTALACE KOMUNIKAČNÍCH ROZVODŮ A ZAŘÍZENÍ',

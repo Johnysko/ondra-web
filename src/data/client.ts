@@ -29,7 +29,8 @@ export const client = {
     state: '',
     zip: '130 00',
     country: 'CZ',
-    mapLink: 'https://maps.app.goo.gl/example',
+    mapLink: 'https://www.google.com/maps/search/?api=1&query=Ambro%C5%BEova+1862%2F13%2C+Praha+3%2C+130+00',
+    mapEmbed: 'https://maps.google.com/maps?q=Ambro%C5%BEova+1862%2F13,+Praha+3,+130+00&hl=cs&z=16&output=embed',
   },
   socials: {
     facebook: 'https://www.facebook.com/stelektro/',

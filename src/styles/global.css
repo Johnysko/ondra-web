@@ -5,12 +5,18 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  html.dark-mode {
+    color-scheme: dark;
   }
 
   body {
     font-family: var(--font-body);
     color: var(--color-text);
-    transition: background-color 0.3s;
+    background-color: var(--color-background);
+    transition: background-color 0.3s, color 0.3s;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -19,16 +25,55 @@
     color: var(--color-text);
   }
 
-  .dark body,
-  body.dark-mode {
-    background-color: var(--color-dark);
-    color: var(--color-surface);
+  html.dark-mode .brand-logo {
+    filter: brightness(0) invert(1);
   }
 
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
-  body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
-  body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
-    color: var(--color-surface);
+  .theme-switch {
+    position: relative;
+    display: inline-flex;
+    width: 3.25rem;
+    height: 1.75rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 0.3rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background-color: var(--color-surface);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  html.dark-mode .theme-switch {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+  }
+
+  .theme-switch-icon {
+    z-index: 1;
+    display: inline-flex;
+    color: var(--color-text-muted);
+  }
+
+  html.dark-mode .theme-switch-icon {
+    color: var(--color-accent-fg);
+  }
+
+  .theme-switch-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0.15rem;
+    z-index: 2;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 9999px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.22);
+    transform: translateY(-50%);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.dark-mode .theme-switch-thumb {
+    transform: translate(1.5rem, -50%);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -182,11 +227,10 @@
     animation: icon-pulse 3.5s ease-in-out infinite;
   }
 
-  .icon-chip {
-    border: 1px solid transparent;
-    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
-    color: var(--color-primary);
-    transition: border-color 0.3s ease-out;
+  .loxone-logo {
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .group:hover .icon-chip {
