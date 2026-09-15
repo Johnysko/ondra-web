@@ -32,7 +32,7 @@ const pageTitle = title === brand.name ? title : `${title} — ${brand.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
 ---
 
-<html lang={brand.locale.split('_')[0]} class="scroll-smooth">
+<html lang={brand.locale.split('_')[0]} class="scroll-smooth dark-mode">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,7 +76,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? brand.url);
         function applyTheme(root) {
           if (!root) return;
           var t = localStorage.getItem('theme');
-          var dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          // Dark is the site default; light is opt-in via the theme toggle.
+          var dark = t !== 'light';
           root.classList.toggle('dark-mode', dark);
         }
         applyTheme(document.documentElement);

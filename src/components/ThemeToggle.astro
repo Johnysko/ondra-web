@@ -7,8 +7,8 @@ import { renderLucideIcon } from '../utils/lucide';
   role="switch"
   data-theme-toggle
   class="inline-flex min-h-[44px] cursor-pointer items-center rounded-md px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-  aria-label="Přepnout tmavý režim"
-  aria-checked="false"
+  aria-label="Přepnout světlý režim"
+  aria-checked="true"
 >
   <span class="theme-switch" aria-hidden="true">
     <span class="theme-switch-icon">
@@ -35,14 +35,7 @@ import { renderLucideIcon } from '../utils/lucide';
     });
   }
 
-  function applyStoredTheme() {
-    const t = localStorage.getItem('theme');
-    const dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.classList.toggle('dark-mode', dark);
-  }
-
   function initThemeToggle() {
-    applyStoredTheme();
     document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
       if (!(btn instanceof HTMLElement)) return;
       if (btn.dataset.init === 'true') return;

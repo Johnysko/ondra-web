@@ -44,14 +44,8 @@ export const heroImageIsLogo = true;
 
 // ── About ─────────────────────────────────────────────────────────────────────
 // Recommended: portrait or square image of your team/job site, at least 900 × 700 px
-//
-// To use your own:
-//   1. Drop your file into src/assets/images/about/
-//   2. Uncomment and update the line below
-//   3. Replace the aboutImage export at the bottom of this section
-//
-// import aboutImage from '../assets/images/about/team.jpg';
-export const aboutImage: ImageMetadata | undefined = undefined;
+import aboutImageAsset from '../assets/images/about/web-elektro.jpg';
+export const aboutImage: ImageMetadata | undefined = aboutImageAsset;
 
 // ── Gallery — auto-discovered ─────────────────────────────────────────────────
 // Drop any number of image files into src/assets/images/gallery/ and they will

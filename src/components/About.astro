@@ -1,10 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import { aboutImage as localAboutImage } from '../config/images';
-
-// Fallback Unsplash URL used until a local image is added to
-// src/assets/images/about/ and registered in src/config/images.ts
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=900&q=80';
 
 interface Props {
   topper?: string;
@@ -32,13 +29,11 @@ const {
   ],
   ctaLabel = 'Nezávazná nabídka',
   ctaHref = '/kontakt',
-  imageSrc = localAboutImage ?? PLACEHOLDER,
-  imageAlt = 'Ondra Taclík, elektrikář',
+  imageSrc = localAboutImage,
+  imageAlt = 'Práce na elektro rozvaděči',
 } = Astro.props;
 
-const aboutSrc = typeof imageSrc === 'string' ? imageSrc : imageSrc.src;
-const aboutWidth = typeof imageSrc === 'string' ? 700 : imageSrc.width;
-const aboutHeight = typeof imageSrc === 'string' ? 525 : imageSrc.height;
+const localImage = typeof imageSrc === 'string' ? undefined : imageSrc;
 ---
 
 <section id="o-mne" class="scroll-mt-28 py-section">
@@ -46,15 +41,25 @@ const aboutHeight = typeof imageSrc === 'string' ? 525 : imageSrc.height;
 
     <!-- Image -->
     <div class:list={['overflow-hidden rounded-lg shadow-lg', reveal && 'reveal reveal-from-left']}>
-      <img
-        src={aboutSrc}
-        alt={imageAlt}
-        width={aboutWidth}
-        height={aboutHeight}
-        loading="lazy"
-        decoding="async"
-        class="size-full object-cover"
-      />
+      {localImage ? (
+        <Image
+          src={localImage}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="size-full object-cover"
+        />
+      ) : (
+        <img
+          src={typeof imageSrc === 'string' ? imageSrc : ''}
+          alt={imageAlt}
+          width={700}
+          height={525}
+          loading="lazy"
+          decoding="async"
+          class="size-full object-cover"
+        />
+      )}
     </div>
 
     <!-- Content -->

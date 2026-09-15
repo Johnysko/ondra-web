@@ -95,8 +95,14 @@ const imageClass = heroImageIsLogo
       </a>
     </div>
 
-    <!-- Hero image -->
-    <div class="hero-enter-img relative order-1 overflow-visible lg:order-2" transition:name="hero-image">
+    <!-- Hero image: logo is already in the header, so hide the large mark on small screens -->
+    <div
+      class:list={[
+        'hero-enter-img relative overflow-visible lg:order-2',
+        heroImageIsLogo ? 'hidden lg:block' : 'order-1',
+      ]}
+      transition:name="hero-image"
+    >
       <div class:list={[heroImageIsLogo ? 'aspect-square mx-auto w-full max-w-sm sm:max-w-md lg:max-w-[26rem]' : 'aspect-4/3', '[perspective:1200px]']}>
         <div class="hero-img-float relative size-full overflow-visible">
           <div
