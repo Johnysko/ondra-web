@@ -2,10 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { brand } from '../../config/brand';
 ---
 
-<BaseLayout title="Zpráva odeslána" description="Vaše zpráva byla přijata.">
+<BaseLayout title="Zpráva odeslána" description="Vaše zpráva byla přijata. Ozvu se vám co nejdříve to půjde.">
   <Header slot="header" />
 
   <section class="flex min-h-[60vh] items-center justify-center px-4">
@@ -17,10 +16,10 @@ import { brand } from '../../config/brand';
       </div>
 
       <h1 class="font-heading text-h1 font-bold uppercase text-text">
-        Zpráva přijata
+        Zpráva odeslána
       </h1>
       <p class="mt-4 text-text-muted leading-relaxed">
-        Děkuji za zprávu. Ozvu se vám co nejrychleji to půjde.
+        Děkuji za zprávu. Ozvu se vám co nejdříve to půjde.
       </p>
       <a
         href="/"
