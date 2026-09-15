@@ -18,7 +18,7 @@ export const brand = {
   tagline: 'Spolehlivý elektrikář pro domácnosti i firmy.',
   description:
     'Provádím silnoproudé i slaboproudé elektroinstalace, chytrá řešení domácností s pomocí Loxone, LED osvětlení, zabezpečení, hromosvody a revize s důrazem na bezpečnost, čistou práci a platné normy.',
-  url: 'https://example.com',
+  url: 'https://taclikelektro.cz',
   locale: 'cs_CZ',
 
   // ── Fonts ──────────────────────────────────────────────────────────────────
